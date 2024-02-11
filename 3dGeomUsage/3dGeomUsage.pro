@@ -10,13 +10,11 @@ QMAKE_LFLAGS +=  -fopenmp
 
 SOURCES += \
         addit.cpp \
-        curvelist.cpp \
         curvelisttasks.cpp \
         main.cpp
 
 HEADERS += \
   addit.h \
-  curvelist.h \
   curvelisttasks.h
 
 
