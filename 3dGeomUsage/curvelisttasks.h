@@ -10,7 +10,6 @@ using namespace std;
 using PCircle = shared_ptr<Circle>;
 
 list<shared_ptr<Curve>> PopulateCurveList(unsigned int cnt);
-void PrintList(const list<shared_ptr<Curve>> &curveList, const string filename ="");
 void PrintPointsAndDerivs(const list<shared_ptr<Curve>> &curveList, const double param,
   const string &filename);
 vector<PCircle> GetCiclesFromCurves(const list<shared_ptr<Curve>> &curveList);

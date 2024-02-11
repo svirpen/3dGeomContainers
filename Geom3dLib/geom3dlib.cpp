@@ -9,15 +9,15 @@ bool isDebug = false;
 
 Circle::Circle(const double _radius)
 {
-  if (_radius < 0)
-    throw range_error("Значение должно быть не меньше нуля");
+  if (_radius <= 0)
+    throw range_error("Значение должно быть больше нуля");
   r = _radius;
 }
 
 void Circle::SetRadius(const double val)
 {
-  if (val < 0)
-    throw range_error("Значение радиуса должно быть не меньше нуля");
+  if (val <= 0)
+    throw range_error("Значение радиуса должно быть больше нуля");
   r = val;
 }
 
@@ -36,22 +36,22 @@ Derivative Circle::GetXYZDerivative(const double param)
 Ellipse::Ellipse(const double _radiusA, const double _radiusB)
 {
   if (_radiusA < 0 || _radiusB < 0)
-    throw range_error("Значение радиусов должно не меньше нуля");
+    throw range_error("Значение радиусов должно быть больше нуля");
   a = _radiusA;
   b = _radiusB;
 }
 
 void Ellipse::SetRadiusA(const double val)
 {
-  if (val < 0)
-    throw range_error("Значение радиуса должно не меньше нуля");
+  if (val <= 0)
+    throw range_error("Значение радиуса должно быть больше нуля");
   a = val;
 }
 
 void Ellipse::SetRadiusB(const double val)
 {
-  if (val < 0)
-    throw range_error("Значение радиуса должно не меньше нуля");
+  if (val <= 0)
+    throw range_error("Значение радиуса должно быть больше нуля");
   b = val;
 }
 
@@ -69,8 +69,8 @@ Derivative Ellipse::GetXYZDerivative(const double param)
 
 Helix::Helix(const double _r, const double _step)
 {
-  if (_r < 0)
-    throw range_error("Значение радиусов должно быть не меньше нуля");
+  if (_r <= 0)
+    throw range_error("Значение радиусов должно быть больше нуля");
   r = _r;
   step = _step;
 
@@ -88,7 +88,7 @@ Derivative Helix::GetXYZDerivative(const double param)
 
 void Helix::SetRadius(const double val)
 {
-  if (val < 0)
-    throw range_error("Значение радиусов должно быть не меньше нуля");
+  if (val <= 0)
+    throw range_error("Значение радиусов должно быть больше нуля");
   r = val;
 }

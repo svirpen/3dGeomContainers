@@ -37,31 +37,10 @@ list<shared_ptr<Curve>> PopulateCurveList(unsigned int cnt)
 }
 
 
-void PrintList(const list<shared_ptr<Curve>> &curveList, const string filename)
-{
-  ofstream file;
-  if (filename != "")
-    file.open(filename, ios::trunc);
-
-  bool isFirst = true;
-  for (shared_ptr element: curveList)
-  {
-    Curve *curve = element.get();
-    stringstream ss;
-    if (!isFirst)
-      ss << ", ";
-    ss << curve->GetXYZPoint(M_PI / 4);
-    if (filename == "")
-      cout << ss.str();
-    else
-      file << ss.str();
-    isFirst = false;
-  }
-}
-
 void PrintPointsAndDerivs(const list<shared_ptr<Curve>> &curveList, const double param,
   const string &filename)
 {
+
   ofstream file;
   if (filename != "")
     file.open(filename, ios::trunc);
@@ -69,7 +48,6 @@ void PrintPointsAndDerivs(const list<shared_ptr<Curve>> &curveList, const double
   stringstream ss, ss1;
   for (shared_ptr element: curveList)
   {
-    Curve *curve = element.get();
 
     ss.str(string()); ss1.str(string());
     omp_set_num_threads(procCoreCnt > 1 ? 2 : 1 );
@@ -78,11 +56,11 @@ void PrintPointsAndDerivs(const list<shared_ptr<Curve>> &curveList, const double
     {
        #pragma omp section
        {
-         ss << "Point:" << curve->GetXYZPoint(param);
+         ss << "Point:" << element->GetXYZPoint(param);
        }
        #pragma omp section
        {
-        ss1 << ", Deriv:" << curve->GetXYZDerivative(param) << "\n";
+        ss1 << ", Deriv:" << element->GetXYZDerivative(param) << "\n";
        }
     }
 //    continue;
@@ -99,8 +77,9 @@ vector<PCircle> GetCiclesFromCurves(const list<shared_ptr<Curve>> &curveList)
   vector<PCircle> circles;
   circles.reserve(curveList.size());
   for (auto curve: curveList)
-    if (typeid(*curve).hash_code() == typeid(Circle).hash_code())
-      circles.push_back(dynamic_pointer_cast<Circle>(curve));
+//    if (typeid(*curve).hash_code() == typeid(Circle).hash_code())
+      if (dynamic_cast<Circle*>(curve.get()) != 0)
+        circles.push_back(dynamic_pointer_cast<Circle>(curve));
   return circles;
 }
 
@@ -108,8 +87,8 @@ void SortCircleList(vector<PCircle> &circles)
 {
   sort(circles.begin(), circles.end(),[]( const PCircle &circle1, const PCircle &circle2)
   {
-    double prev = circle1.get()->GetRadius();
-    double cur = circle2.get()->GetRadius();
+    double prev = circle1->GetRadius();
+    double cur = circle2->GetRadius();
     if (abs(prev - cur) < numeric_limits<double>::epsilon())
       return false;
     return (prev < cur) ;

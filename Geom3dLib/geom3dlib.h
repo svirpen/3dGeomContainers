@@ -55,10 +55,10 @@ private:
 public:
   Circle() : r{0.1} {}
   Circle(const double _radius);
-  ~Circle() override { }
+  virtual ~Circle() override { }
 
-  Point GetXYZPoint(const double param)  override;
-  Derivative GetXYZDerivative(const double param) override;
+  virtual Point GetXYZPoint(const double param)  override;
+  virtual Derivative GetXYZDerivative(const double param) override;
 
   double GetRadius() {return r;}
   void SetRadius(const double val);
@@ -72,10 +72,10 @@ private:
 public:
   Ellipse() : a{0.1}, b{0.1} {}
   Ellipse(const double _radiusA, const double _radiusB);
-  ~Ellipse() {}
+  virtual ~Ellipse() override {}
 
-  Point GetXYZPoint(const double param) override;
-  Derivative GetXYZDerivative(const double param) override;
+  virtual Point GetXYZPoint(const double param) override;
+  virtual Derivative GetXYZDerivative(const double param) override;
 
   double GetRadiusA() {return a;}
   double GetRadiusB() {return b;}
@@ -91,10 +91,10 @@ private:
 public:
   Helix() : r{0.1}, step{0.1} {}
   Helix(const double _r, const double _step);
-  ~Helix() {}
+  virtual ~Helix() override {}
 
-  Point GetXYZPoint(const double param)  override;
-  Derivative GetXYZDerivative(const double param) override;
+  virtual Point GetXYZPoint(const double param)  override;
+  virtual Derivative GetXYZDerivative(const double param) override;
 
   double GetRadius() {return r;}
   double GetStep() {return step;}
