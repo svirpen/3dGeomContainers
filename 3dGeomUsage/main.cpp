@@ -57,6 +57,7 @@ int main()
   cout << "Готово. Нажмите Enter, чтобы выйти" << endl;
   string s;
   std::getline(std::cin, s);
+  return 0;
 
 
 }
