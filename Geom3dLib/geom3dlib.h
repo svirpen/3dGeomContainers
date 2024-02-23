@@ -6,7 +6,6 @@
 #include <string>
 #include <stdarg.h>
 #include <math.h>
-#include <omp.h>
 #include "Geom3dLib_global.h"
 
 extern bool isDebug;
@@ -22,6 +21,8 @@ struct GEOM3DLIB_EXPORT Point
   string ToStr() {return "(" + to_string(x) + ", " + to_string(y) + ", " + to_string(z);}
   friend std::ostream &operator<<(std::ostream &stream,  const Point& point)  {
      return stream << "(" << point.x << ", " << point.y << ", " << point.z << ")"; }
+  friend std::wostream &operator<<(std::wostream &stream,  const Point& point)  {
+     return stream << "(" << point.x << ", " << point.y << ", " << point.z << ")"; }
 };
 
 struct GEOM3DLIB_EXPORT Derivative
@@ -32,7 +33,8 @@ struct GEOM3DLIB_EXPORT Derivative
   string ToStr() {return "(" + to_string(x) + ", " + to_string(y) + ", " + to_string(z);}
   friend std::ostream &operator<<(std::ostream &stream,  const Derivative& dvt) {
      return stream << "(" << dvt.x << ", " << dvt.y << ", " << dvt.z << ")"; }
-
+  friend std::wostream &operator<<(std::wostream &stream,  const Derivative& dvt)  {
+     return stream << "(" << dvt.x << ", " << dvt.y << ", " << dvt.z << ")"; }
 };
 
 class GEOM3DLIB_EXPORT Curve

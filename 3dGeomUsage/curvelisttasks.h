@@ -3,6 +3,8 @@
 #include <list>
 #include <vector>
 #include <memory>
+#include <codecvt>
+#include <locale>
 #include <../Geom3dLib/Geom3dLib_global.h>
 #include <../Geom3dLib/geom3dlib.h>
 

@@ -3,7 +3,9 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include <iostream>
 #include <typeinfo>
+
 #include "addit.h"
 #include <omp.h>
 
@@ -41,31 +43,33 @@ void PrintPointsAndDerivs(const list<shared_ptr<Curve>> &curveList, const double
   const string &filename)
 {
 
-  ofstream file;
+  tofstream file;
   if (filename != "")
-    file.open(filename, ios::trunc);
+    file.open(filename, ios::trunc );
 
-  stringstream ss, ss1;
+  InitForPlatromFile(file);
+
+  tstringstream ss, ss1;
   for (shared_ptr element: curveList)
   {
 
-    ss.str(string()); ss1.str(string());
+    ss.str(tstring()); ss1.str(tstring());
     omp_set_num_threads(procCoreCnt > 1 ? 2 : 1 );
 
     #pragma omp parallel sections
     {
        #pragma omp section
        {
-         ss << "Point:" << element->GetXYZPoint(param);
+         ss << _t("Point") << element->GetXYZPoint(param);
        }
        #pragma omp section
        {
-        ss1 << ", Deriv:" << element->GetXYZDerivative(param) << "\n";
+        ss1 << _t(", Deriv:") << element->GetXYZDerivative(param) << "\n";
        }
     }
 //    continue;
     if (filename == "")
-      cout << ss.str() << ss1.str();
+       tcout << ss.str() << ss1.str();
     else
       file << ss.str() <<  ss1.str();
 
@@ -109,4 +113,5 @@ double CalcRadiusSum(const vector<PCircle> &circles)
 
   return sum;
 }
+
 
